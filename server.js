@@ -25,6 +25,28 @@ app.use(helmet());
 
 app.use(api);
 
+// Error Handling - Promise rejection
+app.use((err, req, res, next) => {
+    res.set("Content-Type", "application/json");
+    res.set("Cache-Control", "no-store");
+    res.set("Access-Control-Allow-Origin", "*");
+    res.set("Access-Control-Request-Method", "*");
+    res.set(
+        "Access-Control-Allow-Headers",
+        "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type"
+    );
+
+    let errorObj = {
+        status: err.status || 500,
+        message: err.message || "Internal Server Error",
+        stacktrace: err.stack,
+        route: req.originalUrl,
+    };
+
+    res.status(err.status || 500);
+    res.json({ error: errorObj });
+});
+
 let server;
 module.exports = {
     start(port) {
