@@ -1,13 +1,15 @@
 const express = require("express");
-
+const cors = require("cors");
 const morgan = require("morgan");
 const clientSession = require("client-sessions");
 const helmet = require("helmet");
 
 const { SESSION_SECRET } = require("./config");
+const api = require("./src/api");
 
 const app = express();
-const api = require("./src/api");
+
+app.use(cors());
 
 app.get("/", (request, response) => response.sendStatus(200));
 app.get("/health", (request, response) => response.sendStatus(200));

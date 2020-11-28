@@ -5,10 +5,10 @@ const router = new Router();
 
 const user = require("./user");
 const session = require("./session");
-const page = require("./page");
+const station = require("./station");
 
 router.use("/api/users", user);
 router.use("/api/sessions", session);
-router.use("/api/pages", page);
+router.use("/api/stations", station);
 
 module.exports = router;

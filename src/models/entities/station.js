@@ -1,9 +1,9 @@
 const db = require("../../persistence/db");
 const { checkIfGuid } = require("../../utilities/generalUtilities");
 
-class Page {
+class Station {
     constructor(data) {
-        if (data) return this._set_Page(data);
+        if (data) return this._set_Station(data);
     }
 
     async query(id) {
@@ -19,12 +19,12 @@ class Page {
         if (id) {
             queryParams.push(id);
             whereStatement.push(
-                `WHERE page_id = $${queryParams.indexOf(id) + 1}`
+                `WHERE station_id = $${queryParams.indexOf(id) + 1}`
             );
         }
 
         let query = `
-            SELECT * FROM pages
+            SELECT * FROM station
             ${whereStatement.join("")}
         `;
 
@@ -32,20 +32,24 @@ class Page {
 
         if (rows.length == 0) {
             return new Promise((_, reject) =>
-                reject({ status: 404, message: "No Page with that ID Found" })
+                reject({
+                    status: 404,
+                    message: "No Station with that ID Found",
+                })
             );
         }
 
-        return this._set_Page(rows[0]);
+        return this._set_Station(rows[0]);
     }
 
-    _set_Page(data) {
-        this.page_name = data.page_name;
-        this.page_slug = data.page_slug;
-        this.page_id = data.page_id;
+    _set_Station(data) {
+        this.station_name = data.station_name;
+        this.station_slug = data.station_slug;
+        this.station_url = data.station_url;
+        this.station_id = data.station_id;
 
         return this;
     }
 }
 
-module.exports = Page;
+module.exports = Station;
