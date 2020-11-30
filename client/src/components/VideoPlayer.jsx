@@ -3,7 +3,7 @@ import React from "react";
 import ReactPlayer from "react-player";
 
 const VideoPlayer = (props) => {
-    const { isMuted, currentVideo } = props;
+    const { isMuted, volume, currentVideo } = props;
     return (
         <div className="tv">
             <ReactPlayer
@@ -12,7 +12,7 @@ const VideoPlayer = (props) => {
                 width={"100%"}
                 height={"100vh"}
                 controls={false}
-                volume={1}
+                volume={volume}
                 muted={isMuted}
             />
         </div>

@@ -3,10 +3,23 @@ import React from "react";
 import MicIcon from "@material-ui/icons/Mic";
 import MicOffIcon from "@material-ui/icons/MicOff";
 import EditIcon from "@material-ui/icons/Edit";
+import Grid from "@material-ui/core/Grid";
+import Slider from "@material-ui/core/Slider";
+import VolumeDown from "@material-ui/icons/VolumeDown";
+import VolumeUp from "@material-ui/icons/VolumeUp";
 
 const Header = (props) => {
-    const { isMuted, toggleMute, switchVideo, closeMenu, stationsData } = props;
+    const {
+        isMuted,
+        toggleMute,
+        switchVideo,
+        closeMenu,
+        stationsData,
+        volume,
+        handleVolume,
+    } = props;
     console.log(stationsData);
+
     return (
         <div>
             <header className="page-header">
@@ -19,6 +32,32 @@ const Header = (props) => {
                     <span></span>
                     <span></span>
                 </label>
+                <Grid
+                    container
+                    spacing={2}
+                    style={{
+                        maxWidth: "350px",
+                        width: "60vw",
+                    }}
+                >
+                    <Grid item>
+                        <VolumeDown style={{ color: "#fff" }} />
+                    </Grid>
+                    <Grid item xs>
+                        <Slider
+                            min={0}
+                            max={1}
+                            step={0.01}
+                            value={volume}
+                            onChange={handleVolume}
+                            aria-labelledby="continuous-slider"
+                            style={{ color: "#fff" }}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <VolumeUp style={{ color: "#fff" }} />
+                    </Grid>
+                </Grid>
                 <label onClick={toggleMute} className="mute-toggle-lable">
                     <div className="mute-toggle">
                         <span>
@@ -36,7 +75,7 @@ const Header = (props) => {
                 </label>
 
                 <nav className="menu">
-                    <EditIcon
+                    {/* <EditIcon
                         style={{
                             position: "absolute",
                             top: "15px",
@@ -47,7 +86,7 @@ const Header = (props) => {
                         onClick={function () {
                             console.log("Edit Button Click!!");
                         }}
-                    />
+                    /> */}
                     <ol>
                         <li
                             className="menu-item"
@@ -86,32 +125,120 @@ const Header = (props) => {
                             </a>
                             <ol className="sub-menu">
                                 <li className="menu-item">
-                                    <a href="./bikinibeach/">Bikini Beach</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[3].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[3].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[3].station_name}
+                                    </a>
                                 </li>
                                 <li className="menu-item">
-                                    <a href="#0">Bigger Widgets</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[4].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[4].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[4].station_name}
+                                    </a>
                                 </li>
                                 <li className="menu-item">
-                                    <a href="#0">Huge Widgets</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[5].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[5].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[5].station_name}
+                                    </a>
                                 </li>
                             </ol>
                         </li>
                         <li className="menu-item">
-                            <a href="#0">Kabobs</a>
+                            <a
+                                href={"#/" + stationsData[6].station_slug}
+                                onClick={function () {
+                                    switchVideo(stationsData[6].station_url);
+                                    closeMenu();
+                                }}
+                            >
+                                {stationsData[6].station_name}
+                            </a>
                             <ol className="sub-menu">
                                 <li className="menu-item">
-                                    <a href="#0">Shishkabobs</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[7].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[7].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[7].station_name}
+                                    </a>
                                 </li>
                                 <li className="menu-item">
-                                    <a href="#0">BBQ kabobs</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[8].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[8].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[8].station_name}
+                                    </a>
                                 </li>
                                 <li className="menu-item">
-                                    <a href="#0">Summer kabobs</a>
+                                    <a
+                                        href={
+                                            "#/" + stationsData[9].station_slug
+                                        }
+                                        onClick={function () {
+                                            switchVideo(
+                                                stationsData[9].station_url
+                                            );
+                                            closeMenu();
+                                        }}
+                                    >
+                                        {stationsData[9].station_name}
+                                    </a>
                                 </li>
                             </ol>
                         </li>
                         <li className="menu-item">
-                            <a href="#0">Contact</a>
+                            <a
+                                href={"#/" + "white-noise"}
+                                onClick={function () {
+                                    switchVideo("https://youtu.be/mCmlobVDp3o");
+                                    closeMenu();
+                                }}
+                            >
+                                White Noise
+                            </a>
                         </li>
                     </ol>
                 </nav>

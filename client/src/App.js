@@ -8,6 +8,7 @@ import { api } from "./api/api";
 import Header from "./components/Header";
 import Welcome from "./components/Welcome";
 import VideoPlayer from "./components/VideoPlayer";
+import FrequencySlider from "./components/FrequencySlider";
 
 //Import Styles
 import "./App.css";
@@ -17,6 +18,7 @@ function App() {
     const [isLoading, setIsLoading] = useState(true);
     const [stationsData, setStationsData] = useState([]);
     const [isWelcome, setIsWelcome] = useState(true);
+    const [volume, setVolume] = useState(35);
     const [isMuted, setIsMuted] = useState(true);
     const [currentVideo, setCurrentVideo] = useState(null);
 
@@ -42,6 +44,9 @@ function App() {
 
     const closeWelcome = () => setIsWelcome(false);
     const toggleMute = () => setIsMuted(!isMuted);
+    const handleVolume = (event, newVolume) => {
+        setVolume(newVolume);
+    };
     const switchVideo = (url) => setCurrentVideo(url);
     const closeMenu = () => {
         let inputs = document.getElementById("menu-toggle-input");
@@ -55,6 +60,8 @@ function App() {
             ) : (
                 <>
                     <Header
+                        volume={volume}
+                        handleVolume={handleVolume}
                         isMuted={isMuted}
                         toggleMute={toggleMute}
                         switchVideo={switchVideo}
@@ -64,7 +71,9 @@ function App() {
                     <VideoPlayer
                         currentVideo={currentVideo}
                         isMuted={isMuted}
+                        volume={volume}
                     />
+                    <FrequencySlider />
                 </>
             )}
         </div>
